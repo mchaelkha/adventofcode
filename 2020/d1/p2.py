@@ -6,8 +6,9 @@ def solution(file):
             n.append(int(line))
     for i in range(len(n)):
         for j in range(i, len(n)):
-            if n[i] + n[j] == 2020:
-                return n[i] * n[j]
+            for k in range(j, len(n)):
+                if n[i] + n[j] + n[k] == 2020:
+                    return n[i] * n[j] * n[k]
     return 0
 
 
