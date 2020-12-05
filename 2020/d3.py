@@ -1,7 +1,3 @@
-# class Slope:
-#
-#     def __init__(self, x, y):
-
 def count_trees(grid, x, y):
     count = 0
     x_max = len(grid[0])
@@ -22,6 +18,8 @@ def solution(file):
         for line in f:
             line = line.strip()
             grid.append(line)
+    # part 1
+    # return count_trees(grid, 3, 1)
     count = 1
     count *= count_trees(grid, 1, 1)
     count *= count_trees(grid, 3, 1)
@@ -32,5 +30,5 @@ def solution(file):
 
 
 if __name__ == '__main__':
-    result = solution('input1.txt')
+    result = solution('input/d3.txt')
     print(result)

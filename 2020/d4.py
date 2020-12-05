@@ -4,6 +4,8 @@ def checkKeys(keys, data):
     for key in keys:
         if key not in data:
             return False
+    # part 1
+    # return True
     if int(data['byr']) < 1920 or int(data['byr']) > 2002:
         return False
     if int(data['iyr']) < 2010 or int(data['iyr']) > 2020:
@@ -47,5 +49,5 @@ def solution(file):
 
 
 if __name__ == '__main__':
-    result = solution('input.txt')
+    result = solution('input/d4.txt')
     print(result)

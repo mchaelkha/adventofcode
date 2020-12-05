@@ -1,5 +1,16 @@
 class Policy:
 
+    # part 1
+    # def __init__(self, rule):
+    #     temp = rule.split('-')
+    #     self.min_char, self.max_char = int(temp[0]), int(temp[1][0:-2])
+    #     self.char = temp[1][-1]
+    #
+    #
+    # def check_password(self, password):
+    #     char_count = password.count(self.char)
+    #     return char_count >= self.min_char and char_count <= self.max_char
+
     def __init__(self, rule):
         temp = rule.split('-')
         self.positions = [int(temp[0]), int(temp[1][0:-2])]
@@ -9,6 +20,7 @@ class Policy:
     def check_password(self, password):
         return (password[self.positions[0]] == self.char) \
             != (password[self.positions[1]] == self.char)
+
 
 
 def is_corrupt(parts):
@@ -26,5 +38,5 @@ def solution(file):
 
 
 if __name__ == '__main__':
-    result = solution('input1.txt')
+    result = solution('input/d2.txt')
     print(result)

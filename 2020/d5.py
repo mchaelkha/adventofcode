@@ -39,6 +39,8 @@ def solution(file):
             col = find_col(line[7:])
             grid[row][col] = row * 8 + col
             ids.append(row * 8 + col)
+    # part 1
+    # return sorted(ids)[-1]
     for r in range(len(grid)):
         for c in range(len(grid[0])):
             if grid[r][c] == 0:
