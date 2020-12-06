@@ -1,32 +1,7 @@
-def find_row(boarding):
-    min_row = 0
-    max_row = 127
-    current = 64
-    while len(boarding) > 1:
-        ch = boarding[0]
-        if ch == 'F':
-            max_row -= current
-        else:
-            min_row += current
-        boarding = boarding[1:]
-        current //= 2
-    return min_row if boarding[0] == 'F' else max_row
-
-
-def find_col(boarding):
-    min_col = 0
-    max_col = 7
-    current = 4
-    while len(boarding) > 1:
-        ch = boarding[0]
-        if ch == 'L':
-            max_col -= current
-        else:
-            min_col += current
-        boarding = boarding[1:]
-        current //= 2
-    return min_col if boarding[0] == 'L' else max_col
-
+def convert_to_bin(line):
+    row = int(line[:7].replace('F', '0').replace('B', '1'), 2)
+    col = int(line[7:].replace('L', '0').replace('R', '1'), 2)
+    return row * 8 + col
 
 def solution(file):
     count = 0
@@ -35,21 +10,20 @@ def solution(file):
     with open(file) as f:
         for line in f:
             line = line.rstrip('\n')
-            row = find_row(line[:7])
-            col = find_col(line[7:])
-            grid[row][col] = row * 8 + col
-            ids.append(row * 8 + col)
+            ids.append(convert_to_bin(line))
     # part 1
     # return sorted(ids)[-1]
     for r in range(len(grid)):
         for c in range(len(grid[0])):
             if grid[r][c] == 0:
                 temp = r * 8 + c
-                if (temp - 1) in ids and (temp + 1) in ids:
+                if temp not in ids and (temp - 1) in ids and (temp + 1) in ids:
                     return temp
-    return 0
+    # part 2 sorting trick
+    # lines = sorted(ids)
+    # print([(t[0], t[1]) for t in zip(lines[:-1], lines[1:]) if t[1]-t[0] != 1])
 
 
 if __name__ == '__main__':
-    result = solution('d5.txt')
+    result = solution('input/d5.txt')
     print(result)
