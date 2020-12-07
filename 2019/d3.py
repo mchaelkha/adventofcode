@@ -26,7 +26,8 @@ def process(path):
     return set(points)
 
 
-def get_points_dist(cur_r, cur_c, r, c, dist, prev):
+def get_points_dist(cur_r, cur_c, coords, dist, prev):
+    r, c = coords
     points = set()
     for i in range(1, dist + 1):
         if r:
@@ -41,19 +42,14 @@ def process_dist(path):
     points = []
     cur_r, cur_c = 0, 0
     curr_dist = 0
+    lut = {'L': (0, -1), 'R': (0, 1), 'U': (1, 0), 'D': (-1, 0)}
     for l in lengths:
-        if l[0] == 'L':
-            points += get_points_dist(cur_r, cur_c, 0, -1, int(l[1:]), curr_dist)
-            cur_c += -1 * int(l[1:])
-        elif l[0] == 'R':
-            points += get_points_dist(cur_r, cur_c, 0, 1, int(l[1:]), curr_dist)
-            cur_c += int(l[1:])
-        elif l[0] == 'U':
-            points += get_points_dist(cur_r, cur_c, 1, 0, int(l[1:]), curr_dist)
-            cur_r += int(l[1:])
-        elif l[0] == 'D':
-            points += get_points_dist(cur_r, cur_c, -1, 0, int(l[1:]), curr_dist)
-            cur_r += -1 * int(l[1:])
+        pt = lut[l[0]]
+        points += get_points_dist(cur_r, cur_c, pt, int(l[1:]), curr_dist)
+        if pt[0]:
+            cur_r += pt[0] * int(l[1:])
+        elif pt[1]:
+            cur_c += pt[1] * int(l[1:])
         curr_dist += int(l[1:])
     return set(points)
 
@@ -90,7 +86,7 @@ def solution(file):
         for line in f:
             line = line.rstrip('\n')
             paths.append(line)
-    return part1(paths)
+    return part2(paths)
 
 
 if __name__ == '__main__':
