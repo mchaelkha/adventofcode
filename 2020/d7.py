@@ -23,7 +23,7 @@ def part1_bfs(bags):
     while targets:
         temp = set()
         for targ in targets:
-            for key in list(bags.keys()):
+            for key in bags.keys():
                 dict_val_keys = set(bags[key].keys())
                 if not key in discovered and targ in dict_val_keys:
                     gold_count += 1
@@ -35,10 +35,8 @@ def part1_bfs(bags):
 
 def dfs(bags, targ):
     total = 0
-    for key in list(bags[targ].keys()):
-        ct = bags[targ][key]
-        total += ct
-        total += ct * dfs(bags, key)
+    for key in bags[targ].keys():
+        total += bags[targ][key] * (1 + dfs(bags, key))
     return total
 
 

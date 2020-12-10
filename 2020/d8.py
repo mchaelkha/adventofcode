@@ -7,20 +7,16 @@ def part1(I):
     while stack:
         inst = stack.pop()
         if inst in called:
-            print(inst, called)
             return acc_total
         called.add(inst)
         if inst[0] == 'nop':
             i += 1
-            stack.append(I[i])
-            continue
         elif inst[0] == 'acc':
             acc_total += inst[1]
             i += 1
-            stack.append(I[i])
         elif inst[0] == 'jmp':
             i += inst[1]
-            stack.append(I[i])
+        stack.append(I[i])
     return acc_total
 
 
@@ -38,15 +34,12 @@ def part2(I):
             called.add(inst)
             if inst[0] == 'nop':
                 i += 1
-                stack.append(I[i])
-                continue
             elif inst[0] == 'acc':
                 acc_total += inst[1]
                 i += 1
-                stack.append(I[i])
             elif inst[0] == 'jmp':
                 i += inst[1]
-                stack.append(I[i])
+            stack.append(I[i])
         except IndexError as e:
             break
     return acc_total
@@ -81,7 +74,7 @@ def solution(file):
             line.append(i)
             instructions.append(tuple(line))
             i += 1
-    return part2_helper(instructions)
+    return part1(instructions)
 
 
 if __name__ == '__main__':
